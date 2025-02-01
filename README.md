@@ -44,19 +44,19 @@ Before proceeding with the next sections, open a terminal and login in Azure wit
 terraform init -reconfigure
 ```
 
-# Verify the Updates in the Terraform Code
+## Verify the Updates in the Terraform Code
 
 ```sh
 terraform plan -var-file="./secret/main.json"
 ```
 
-# Apply the Updates from the Terraform Code
+## Apply the Updates from the Terraform Code
 
 ```sh
 terraform apply -var-file="./secret/main.json" -auto-approve
 ```
 
-# Format Terraform Code
+## Format Terraform Code
 
 ```sh
 find . -not -path "*/.terraform/*" -not -path "*/function/*" -type f -name '*.tf' -print | uniq | xargs -n1 terraform fmt
