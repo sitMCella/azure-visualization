@@ -23,19 +23,19 @@ module "virtual_network" {
 }
 
 module "key_vault" {
-  source = "./modules/key_vault"
-  resource_group_name = azurerm_resource_group.resource_group.name
-  location = var.location
-  location_abbreviation = var.location_abbreviation
-  environment = var.environment
-  tenant_id = var.tenant_id
-  service_principal_account_name = var.service_principal_account_name
+  source                           = "./modules/key_vault"
+  resource_group_name              = azurerm_resource_group.resource_group.name
+  location                         = var.location
+  location_abbreviation            = var.location_abbreviation
+  environment                      = var.environment
+  tenant_id                        = var.tenant_id
+  service_principal_account_name   = var.service_principal_account_name
   service_principal_account_secret = var.service_principal_account_secret
-  allowed_ip_address_ranges = var.allowed_ip_address_ranges
-  subnet_private_endpoints_id = module.virtual_network.subnet_private_endpoints_id
-  subnet_vnet_integration_id = module.virtual_network.subnet_vnet_integration_id
-  private_dns_zone_key_vault_id = module.dns.private_dns_zone_key_vault_id
-  tags     = var.tags
+  allowed_ip_address_ranges        = var.allowed_ip_address_ranges
+  subnet_private_endpoints_id      = module.virtual_network.subnet_private_endpoints_id
+  subnet_vnet_integration_id       = module.virtual_network.subnet_vnet_integration_id
+  private_dns_zone_key_vault_id    = module.dns.private_dns_zone_key_vault_id
+  tags                             = var.tags
 }
 
 module "storage_account" {
@@ -61,24 +61,24 @@ module "monitor" {
 }
 
 module "function_app" {
-  source = "./modules/function_app"
-  resource_group_name = azurerm_resource_group.resource_group.name
-  location = var.location
-  location_abbreviation = var.location_abbreviation
-  environment = var.environment
-  key_vault_id = module.key_vault.key_vault_id
-  storage_account_id = module.storage_account.storage_account_id
-  storage_account_name = module.storage_account.storage_account_name
-  storage_account_primary_access_key = module.storage_account.storage_account_primary_access_key
-  storage_container_name = module.storage_account.storage_container_name
-  log_analytics_workspace_id = module.monitor.log_analytics_workspace_id
-  allowed_ip_address_ranges = var.allowed_ip_address_ranges
-  subnet_vnet_integration_id = module.virtual_network.subnet_vnet_integration_id
-  subscription_id = var.subscription_id
-  tenant_id = var.tenant_id
-  key_vault_secret_service_principal_account_name_versionless_id = module.key_vault.key_vault_secret_service_principal_account_name_versionless_id
+  source                                                           = "./modules/function_app"
+  resource_group_name                                              = azurerm_resource_group.resource_group.name
+  location                                                         = var.location
+  location_abbreviation                                            = var.location_abbreviation
+  environment                                                      = var.environment
+  key_vault_id                                                     = module.key_vault.key_vault_id
+  storage_account_id                                               = module.storage_account.storage_account_id
+  storage_account_name                                             = module.storage_account.storage_account_name
+  storage_account_primary_access_key                               = module.storage_account.storage_account_primary_access_key
+  storage_container_name                                           = module.storage_account.storage_container_name
+  log_analytics_workspace_id                                       = module.monitor.log_analytics_workspace_id
+  allowed_ip_address_ranges                                        = var.allowed_ip_address_ranges
+  subnet_vnet_integration_id                                       = module.virtual_network.subnet_vnet_integration_id
+  subscription_id                                                  = var.subscription_id
+  tenant_id                                                        = var.tenant_id
+  key_vault_secret_service_principal_account_name_versionless_id   = module.key_vault.key_vault_secret_service_principal_account_name_versionless_id
   key_vault_secret_service_principal_account_secret_versionless_id = module.key_vault.key_vault_secret_service_principal_account_secret_versionless_id
-  tags     = var.tags
+  tags                                                             = var.tags
 }
 
 module "web_app" {
