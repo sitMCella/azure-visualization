@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.line-break {
+  width: 100%;
+}
+
+.content {
+  flex-wrap: wrap;
+}
+
+pre {
+  font-size: 0.9rem !important;
+}

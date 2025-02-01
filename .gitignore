@@ -1,3 +1,5 @@
+.DS_Store
+
 # Local .terraform directories
 **/.terraform/*
 
@@ -26,12 +28,17 @@ override.tf.json
 # Ignore transient lock info files created by terraform apply
 .terraform.tfstate.lock.info
 
-# Include override files you do wish to add to version control using negated pattern
-# !example_override.tf
-
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
-
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+.terraform.lock.hcl
+
+# Exclude the secret directory
+secret/
+
+# Exclude the zip files of the Azure function
+function*.zip
+
+# Exclude the Frontend application build directory
+frontend/build/
