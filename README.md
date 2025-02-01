@@ -2,6 +2,8 @@
 
 This project provides a visualization tool for the Azure Entra ID Groups membership.
 
+> ![Visualization](https://github.com/sitMCella/azure-visualization/wiki/images/Visualization.png)
+
 The solution consists of an automation running in one Azure Function App that retrieves the 
 Users and Groups from Azure Entra ID using a Service Principal Account (App Registration), 
 and stores the data as CSV files in one Storage Account.
