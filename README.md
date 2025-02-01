@@ -12,7 +12,7 @@ one Docker image and runs in one Azure App Service.
 ## Configuration
 
 - Assign the RBAC roles "Contributor", "User Access Administrator", "Key Vault Secrets Officer", "AcrPush" to the User account on the Subscription level.
-- Update the file `terraform.tfvars` with the values for the Terraform variables.
+- Create the file `terraform.tfvars` with the values for the Terraform variables.
 
 ```sh
 location                  = "<azure_region>" # e.g. "westeurope"
