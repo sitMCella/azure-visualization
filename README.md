@@ -8,13 +8,13 @@ The solution consists of an automation running in one Azure Function App that re
 Users and Groups from Azure Entra ID using a Service Principal Account (App Registration), 
 and stores the data as CSV files in one Storage Account.
 One React application configured with the React-Sigma library, retrives the data from the Storage 
-Account and visualize the Users and the Groups membership. The application is packaged in 
+Account and visualizes the Users and the Groups membership. The application is packaged in 
 one Docker image and runs in one Azure App Service. 
 
 ## Configuration
 
 - Assign the RBAC roles "Contributor", "User Access Administrator", "Key Vault Secrets Officer", "AcrPush" to the User account on the Subscription level.
-- Create the file `terraform.tfvars` with the values for the Terraform variables.
+- Create the file `terraform.tfvars` with the values for the following Terraform variables:
 
 ```sh
 location                  = "<azure_region>" # e.g. "westeurope"
