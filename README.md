@@ -1,6 +1,6 @@
 # Azure Entra ID Groups membership visualization
 
-This project provides a visualization tool for the Azure Entra ID Groups membership.
+This project provides a visualization tool for the Azure Entra ID Groups membership .
 
 The solution consists of an automation running in one Azure Function App that retrieves the 
 Users and Groups from Azure Entra ID using a Service Principal Account (App Registration), 
