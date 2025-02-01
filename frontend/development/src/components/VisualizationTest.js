@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Graph from "graphology";
-import { SigmaContainer, useLoadGraph, useRegisterEvents } from "@react-sigma/core";
+import {
+  SigmaContainer,
+  useLoadGraph,
+  useRegisterEvents,
+} from "@react-sigma/core";
 import forceAtlas2 from "graphology-layout-forceatlas2";
-import {random} from "graphology-layout";
+import { random } from "graphology-layout";
 import Calendar from "react-calendar";
 import "@react-sigma/core/lib/style.css";
 import "react-calendar/dist/Calendar.css";
@@ -46,7 +50,7 @@ export const LoadGraph = (props) => {
     "DisplayName": "Creative Coders",
     "Id": "edfb341d-6efd-45b1-bf37-15b5638edbbc"
   }
-]`
+]`;
   const usersJson = `[
   {
     "DisplayName": "Yolanda Maas",
@@ -164,7 +168,7 @@ export const LoadGraph = (props) => {
     "DisplayName": "Sacnite Nilsen",
     "Id": "630ac2d2-345a-4539-8f7a-4bc3e10f6702"
   }
-]`
+]`;
   const groupsMembersJson = `[
   {
     "MemberIds": [
@@ -250,11 +254,11 @@ export const LoadGraph = (props) => {
     ],
     "GroupId": "edfb341d-6efd-45b1-bf37-15b5638edbbc"
   }
-]`
+]`;
 
   useEffect(() => {
     console.log("Visualize graph on date: " + props.date);
-    var dateValue = (props.date.getDate()>9 ? '' : '0') + props.date.getDate() + "_" + (props.date.getMonth()>9 ? '' : '0') + (props.date.getMonth() + 1) + "_" + props.date.getFullYear();
+    var dateValue = (props.date.getDate() > 9 ? "" : "0") + props.date.getDate() + "_" + (props.date.getMonth() > 9 ? "" : "0") + (props.date.getMonth() + 1) + "_" + props.date.getFullYear();
     console.log("Date value: " + dateValue);
 
     const graph = new Graph();
@@ -263,19 +267,36 @@ export const LoadGraph = (props) => {
     var users = JSON.parse(usersJson);
     var groupsMembers = JSON.parse(groupsMembersJson);
 
-    groups.forEach(group => {
-      graph.addNode("group_" + group.Id, { x: Math.floor(Math.random()), y: Math.floor(Math.random()), label: group.DisplayName, size: 10, color: "#4b5563" });
+    groups.forEach((group) => {
+      graph.addNode("group_" + group.Id, {
+        x: Math.floor(Math.random()),
+        y: Math.floor(Math.random()),
+        label: group.DisplayName,
+        size: 10,
+        color: "#4b5563",
+      });
     });
 
-    users.forEach(user => {
-      graph.addNode("user_" + user.Id, { x: Math.floor(Math.random()), y: Math.floor(Math.random()), label: user.DisplayName, size: 10, color: "#4b5563" });
+    users.forEach((user) => {
+      graph.addNode("user_" + user.Id, {
+        x: Math.floor(Math.random()),
+        y: Math.floor(Math.random()),
+        label: user.DisplayName,
+        size: 10,
+        color: "#4b5563",
+      });
     });
 
     var rel = 1;
-    groupsMembers.forEach(groupsMember => {
-      groupsMember.MemberIds.forEach(groupMember => {
-        if(users.some(u => u.Id === groupMember)) {
-          graph.addEdgeWithKey(rel, "group_" + groupsMember.GroupId, "user_" + groupMember, { label: rel, size: 0.5, color: "#4b5563" });
+    groupsMembers.forEach((groupsMember) => {
+      groupsMember.MemberIds.forEach((groupMember) => {
+        if (users.some((u) => u.Id === groupMember)) {
+          graph.addEdgeWithKey(
+            rel,
+            "group_" + groupsMember.GroupId,
+            "user_" + groupMember,
+            { label: rel, size: 0.5, color: "#4b5563" },
+          );
           rel = rel + 1;
         }
       });
@@ -284,38 +305,35 @@ export const LoadGraph = (props) => {
     registerEvents({
       clickNode: (event) => {
         console.log("Noede id: " + event.node);
-        graph.forEachNode(
-          function(id, attr) {
-            if(id === event.node || graph.areDirectedNeighbors(id, event.node)) {
-              if(id.startsWith("group_")) {
-                attr.color = "#d93d1a";
-              } else {
-                attr.color = "#d9791a";
-              }
+        graph.forEachNode(function (id, attr) {
+          if (id === event.node || graph.areDirectedNeighbors(id, event.node)) {
+            if (id.startsWith("group_")) {
+              attr.color = "#d93d1a";
             } else {
-              attr.color = "#4b5563";
+              attr.color = "#d9791a";
             }
-          });
-        graph.forEachEdge((edge, attr, source, target) => 
-          {
-            if(source === event.node || target === event.node) {
-              attr.size = 1;
-              attr.color = "#ffaa00";
-            } else {
-              attr.size = 0.5;
-              attr.color = "#4b5563";
-            }
+          } else {
+            attr.color = "#4b5563";
           }
-        );
+        });
+        graph.forEachEdge((edge, attr, source, target) => {
+          if (source === event.node || target === event.node) {
+            attr.size = 1;
+            attr.color = "#ffaa00";
+          } else {
+            attr.size = 0.5;
+            attr.color = "#4b5563";
+          }
+        });
         loadGraph(graph);
-      }
-    })
+      },
+    });
 
     random.assign(graph);
-    forceAtlas2.assign(graph, {iterations: 50});
+    forceAtlas2.assign(graph, { iterations: 50 });
     loadGraph(graph);
   }, [loadGraph, registerEvents, props.refresh]);
-  
+
   return null;
 };
 
@@ -325,13 +343,16 @@ function VisualizationTest() {
     height: window.innerHeight,
   });
 
-  const sigmaStyle = { height: windowDimensions.height, width: windowDimensions.width - 250 };
+  const sigmaStyle = {
+    height: windowDimensions.height,
+    width: windowDimensions.width - 250,
+  };
 
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState(new Date());
 
   const [refresh, doRefresh] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fileNames = [
     "groups_01_02_2025.json",
@@ -343,41 +364,43 @@ function VisualizationTest() {
     "users_17_01_2025.json",
     "users_12_01_2025.json",
     "users_02_12_2024.json",
-    "users_15_02_2024.json"
-  ]
-  
+    "users_15_02_2024.json",
+  ];
+
   function findStartWith(fileNames, arg) {
-    return fileNames.filter(value => {
+    return fileNames.filter((value) => {
       return value.startsWith(arg);
     });
   }
 
   function isInArray(array, value) {
-    return !!array.find(item => {return item.getTime() == value.getTime()});
+    return !!array.find((item) => {
+      return item.getTime() == value.getTime();
+    });
   }
 
   function changeDate(newDate) {
     setDate(newDate);
-    console.log('Change date: ' + newDate);
+    console.log("Change date: " + newDate);
     var isDateAvailable = isInArray(dates, newDate);
     console.log("Is date available: " + isDateAvailable);
-    if(isDateAvailable) {
-      doRefresh(prev => prev + 1);
-      setErrorMessage('');
+    if (isDateAvailable) {
+      doRefresh((prev) => prev + 1);
+      setErrorMessage("");
     } else {
       setErrorMessage("The date " + newDate + " is not available.");
     }
   }
 
   useEffect(() => {
-    setErrorMessage('');
+    setErrorMessage("");
     var usersFiles = findStartWith(fileNames, "users_");
 
-    var usersDatesValues = usersFiles.map(value => {
+    var usersDatesValues = usersFiles.map((value) => {
       return value.substring(value.indexOf("_") + 1, value.length - 5);
     });
 
-    var usersDates = usersDatesValues.map(value => {
+    var usersDates = usersDatesValues.map((value) => {
       const parts = value.split("_");
 
       const year = parseInt(parts[2], 10);
@@ -386,19 +409,19 @@ function VisualizationTest() {
 
       return new Date(year, month, day);
     });
-    
-    usersDates.sort((a,b) => b.getTime() - a.getTime());
+
+    usersDates.sort((a, b) => b.getTime() - a.getTime());
     setDates(usersDates);
-    setDate(usersDates[0])
+    setDate(usersDates[0]);
     console.log(usersDates);
   }, []);
 
   return (
-    <div style={{display:'flex', flexDirection:'row'}}>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <SigmaContainer style={sigmaStyle}>
         <LoadGraph refresh={refresh} date={date} />
       </SigmaContainer>
-      <div style={{width:'250px', height:'100%'}}>
+      <div style={{ width: "250px", height: "100%" }}>
         <Calendar onChange={changeDate} value={date} />
         <div>
           <span>{errorMessage}</span>

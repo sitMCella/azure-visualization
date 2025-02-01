@@ -8,8 +8,8 @@ function App() {
     <div className="App w-screen">
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<Visualization />} />
-          <Route path="/" element={<VisualizationTest />} />
+          <Route path="/" element={<Visualization />} />
+          <Route path="/test" element={<VisualizationTest />} />
         </Routes>
       </BrowserRouter>
     </div>
